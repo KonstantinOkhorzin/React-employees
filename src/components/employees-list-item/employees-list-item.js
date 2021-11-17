@@ -17,7 +17,7 @@ class EmployeesListItem extends Component {
         }))
     }
 
-    like = () => {
+    onLike = () => {
         this.setState(state => ({  //без деструкторизация
             like: !state.like
         }))
@@ -37,7 +37,7 @@ class EmployeesListItem extends Component {
 
     return (
         <li className={classNames} >
-            <span className="list-group-item-label" onClick={this.like}>{name}</span>
+            <span className="list-group-item-label" onClick={this.onLike}>{name}</span>
             <input type="text" className="list-group-item-input" defaultValue={salary + '$'} />
             <div className='d-flex justify-content-center align-items-center'>
 
