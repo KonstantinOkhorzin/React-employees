@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { v4 as uuidv4 } from 'uuid';
 
 import AppInfo from '../app-info/app-info';
 import SearchPanel from '../search-panel/search-panel';
@@ -11,30 +12,41 @@ import './app.css';
 function App() {
 
     const [data, setData] = useState([
-        {name: 'John C.', salary: 800, increase: false, id: 1},
-        {name: 'Alex M.', salary: 3000, increase: true, id: 2},
-        {name: 'Carl W.', salary: 5000, increase: false, id: 3}
+        { name: 'John C.', salary: 800, increase: false, id: 1 },
+        { name: 'Alex M.', salary: 3000, increase: true, id: 2 },
+        { name: 'Carl W.', salary: 5000, increase: false, id: 3 }
     ]);
 
     const onDeleteItem = (id) => {
-            setData(data.filter(item => item.id !== id))
+        setData(data.filter(item => item.id !== id))
+    }
+     
+    const addItem = (name, salary) => {
+        const newItem = {
+            name,
+            salary,
+            increase: false,
+            id: uuidv4()
+        }
+        setData([...data, newItem]) 
     }
 
 
     return (
         <div className="app">
-            <AppInfo/>
+            <AppInfo />
 
             <div className="search-panel">
-                <SearchPanel/>
-                <AppFilter/>
+                <SearchPanel />
+                <AppFilter />
 
             </div>
 
-            <EmployeesList 
+            <EmployeesList
                 data={data}
-                onDeleteItem={onDeleteItem}/>
-            <EmployeesAddForm/>
+                onDeleteItem={onDeleteItem} />
+            <EmployeesAddForm 
+                addItem={addItem}/>
 
         </div>
     );
