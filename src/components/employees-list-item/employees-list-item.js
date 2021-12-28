@@ -2,7 +2,7 @@ import { useState } from "react";
 
 import "./employees-list-item.css";
 
-const EmployeesListItem = ({name, salary}) => {
+const EmployeesListItem = ({name, salary, onDeleteItem}) => {
 
     const [increase, setIncrease] = useState(false);
     const [rise, setRice] = useState(false);
@@ -43,7 +43,10 @@ const EmployeesListItem = ({name, salary}) => {
                     <i className="fas fa-cookie"></i>
                 </button>
 
-                <button type="button" className="btn-trash btn-sm">
+                <button 
+                    type="button" 
+                    className="btn-trash btn-sm"
+                    onClick={onDeleteItem}>
                     <i className="fas fa-trash"></i>
                 </button>
 
