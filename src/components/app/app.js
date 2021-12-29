@@ -17,6 +17,9 @@ function App() {
         { name: 'Carl W.', salary: 5000, increase: false, rise: true, id: 3 }
     ]);
 
+    const employees = data.length;//общее кол. сотрудников
+    const increased = data.filter(item => item.increase).length;//сотрудники на повышение
+
     const onDeleteItem = (id) => {
         setData(data.filter(item => item.id !== id))
     }
@@ -49,7 +52,7 @@ function App() {
 
     return (
         <div className="app">
-            <AppInfo />
+            <AppInfo employees={employees} increased={increased}/>
 
             <div className="search-panel">
                 <SearchPanel />
