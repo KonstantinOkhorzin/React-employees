@@ -9,6 +9,7 @@ const EmployeesAddForm = ({ addItem }) => {
 
     const onSubmit = (e) => {
         e.preventDefault();
+        if (name.length < 3 || !salary) return;
         addItem(name, salary);
         setName('')
         setSalary('')
