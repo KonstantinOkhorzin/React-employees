@@ -1,7 +1,7 @@
 
 import "./employees-list-item.css";
 
-const EmployeesListItem = ({name, salary, onDeleteItem, onToggleIncrease, onToggleRice, increase, rise}) => {
+const EmployeesListItem = ({name, salary, onDeleteItem, onToggleProp, increase, rise}) => {
 
     //Добавляем класс активному елементу
     let classNames = "list-group-item d-flex justify-content-between";
@@ -17,7 +17,8 @@ const EmployeesListItem = ({name, salary, onDeleteItem, onToggleIncrease, onTogg
     return (
         <li className={classNames}>
             <span 
-            onClick={onToggleRice}
+            onClick={onToggleProp}
+            data-toggle='rise'
             className="list-group-item-label">
                 {name}
             </span>
@@ -25,7 +26,8 @@ const EmployeesListItem = ({name, salary, onDeleteItem, onToggleIncrease, onTogg
             <div className='d-flex justify-content-center align-items-center'>
 
                 <button 
-                    onClick={onToggleIncrease}
+                    onClick={onToggleProp}
+                    data-toggle='increase'
                     type="button" 
                     className="btn-cookie btn-sm">
                     <i className="fas fa-cookie"></i>

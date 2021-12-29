@@ -23,7 +23,7 @@ function App() {
     const onDeleteItem = (id) => {
         setData(data.filter(item => item.id !== id))
     }
-     
+
     const addItem = (name, salary) => {
         const newItem = {
             name,
@@ -32,27 +32,35 @@ function App() {
             rise: false,
             id: uuidv4()
         }
-        setData([...data, newItem]) 
+        setData([...data, newItem])
     }
 
     //Функция которая меняет состояние значения определенного обьекта
-    const onToggleIncrease = (id) => {
-        setData(data.map(item => {
-                   if (item.id === id) {
-                       return {...item, increase: !item.increase}
-                   }
-                   return item;
-               })
-        )};
+    // const onToggleIncrease = (id) => {
+    //     setData(data.map(item => {
+    //         if (item.id === id) {
+    //             return { ...item, increase: !item.increase }
+    //         }
+    //         return item;
+    //     })
+    //     )
+    // };
 
-    const onToggleRice = (id) => {
-        console.log(`Rice this ${id}`);
+    //Универсальная функция для изменения нескольких состояний
+    const onToggleProp = (id, prop) => {
+        setData(data.map(item => {
+            if (item.id === id) {
+                return { ...item, [prop]: !item[prop] }
+            }
+            return item;
+        })
+        )
     }
 
 
     return (
         <div className="app">
-            <AppInfo employees={employees} increased={increased}/>
+            <AppInfo employees={employees} increased={increased} />
 
             <div className="search-panel">
                 <SearchPanel />
@@ -63,10 +71,9 @@ function App() {
             <EmployeesList
                 data={data}
                 onDeleteItem={onDeleteItem}
-                onToggleIncrease={onToggleIncrease} 
-                onToggleRice={onToggleRice}/>
-            <EmployeesAddForm 
-                addItem={addItem}/>
+                onToggleProp={onToggleProp} />
+            <EmployeesAddForm
+                addItem={addItem} />
 
         </div>
     );
