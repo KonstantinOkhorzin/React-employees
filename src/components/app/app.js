@@ -12,9 +12,9 @@ import './app.css';
 function App() {
 
     const [data, setData] = useState([
-        { name: 'John C.', salary: 800, increase: false, id: 1 },
-        { name: 'Alex M.', salary: 3000, increase: true, id: 2 },
-        { name: 'Carl W.', salary: 5000, increase: false, id: 3 }
+        { name: 'John C.', salary: 800, increase: false, rise: false, id: 1 },
+        { name: 'Alex M.', salary: 3000, increase: true, rise: false, id: 2 },
+        { name: 'Carl W.', salary: 5000, increase: false, rise: true, id: 3 }
     ]);
 
     const onDeleteItem = (id) => {
@@ -26,9 +26,24 @@ function App() {
             name,
             salary,
             increase: false,
+            rise: false,
             id: uuidv4()
         }
         setData([...data, newItem]) 
+    }
+
+    //Функция которая меняет состояние значения определенного обьекта
+    const onToggleIncrease = (id) => {
+        setData(data.map(item => {
+                   if (item.id === id) {
+                       return {...item, increase: !item.increase}
+                   }
+                   return item;
+               })
+        )};
+
+    const onToggleRice = (id) => {
+        console.log(`Rice this ${id}`);
     }
 
 
@@ -44,7 +59,9 @@ function App() {
 
             <EmployeesList
                 data={data}
-                onDeleteItem={onDeleteItem} />
+                onDeleteItem={onDeleteItem}
+                onToggleIncrease={onToggleIncrease} 
+                onToggleRice={onToggleRice}/>
             <EmployeesAddForm 
                 addItem={addItem}/>
 

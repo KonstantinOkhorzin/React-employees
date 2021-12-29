@@ -1,19 +1,7 @@
-import { useState } from "react";
 
 import "./employees-list-item.css";
 
-const EmployeesListItem = ({name, salary, onDeleteItem}) => {
-
-    const [increase, setIncrease] = useState(false);
-    const [rise, setRice] = useState(false);
-
-    const onIncrease = () => {
-        setIncrease(increase => !increase)
-    }
-
-    const onRise = () => {
-        setRice(rise => !rise)
-    }
+const EmployeesListItem = ({name, salary, onDeleteItem, onToggleIncrease, onToggleRice, increase, rise}) => {
 
     //Добавляем класс активному елементу
     let classNames = "list-group-item d-flex justify-content-between";
@@ -29,7 +17,7 @@ const EmployeesListItem = ({name, salary, onDeleteItem}) => {
     return (
         <li className={classNames}>
             <span 
-            onClick={onRise}
+            onClick={onToggleRice}
             className="list-group-item-label">
                 {name}
             </span>
@@ -37,7 +25,7 @@ const EmployeesListItem = ({name, salary, onDeleteItem}) => {
             <div className='d-flex justify-content-center align-items-center'>
 
                 <button 
-                    onClick={onIncrease}
+                    onClick={onToggleIncrease}
                     type="button" 
                     className="btn-cookie btn-sm">
                     <i className="fas fa-cookie"></i>
