@@ -13,11 +13,12 @@ function App() {
 
     const [data, setData] = useState([
         { name: 'John C.', salary: 800, increase: false, rise: false, id: 1 },
-        { name: 'Alex M.', salary: 3000, increase: false, rise: false, id: 2 },
+        { name: 'Alex M.', salary: 3000, increase: false, rise: true, id: 2 },
         { name: 'Carl W.', salary: 5000, increase: false, rise: false, id: 3 }
     ]);
 
     const [term, setTerm] = useState('');
+    const [filter, setFilter] = useState('all');
 
 
     const employees = data.length;//общее кол. сотрудников
@@ -60,15 +61,28 @@ function App() {
         })
     }
 
-    const visibleData = searchEmp(data, term);
-
     //Функция для обновления поиска
     const onUpdateSearch = (term) => {
         setTerm(term)
     }
 
-    
+    //Функция для фильтрации
+    const filterPost = (data, filter) => {
+        switch (filter) {
+            case 'rise':
+                return data.filter(item => item.rise);
+            case 'moreThen1000':
+                return data.filter(item => item.salary > 1000);
+            default:
+                return data
+        }
+    }
 
+    const visibleData = filterPost(searchEmp(data, term), filter);//массив отфильтрованный по поиску и филтру
+
+    const onFilterSelect = (filter) => {
+        setFilter(filter);
+    }
 
     return (
         <div className="app">
@@ -76,7 +90,7 @@ function App() {
 
             <div className="search-panel">
                 <SearchPanel onUpdateSearch={onUpdateSearch}/>
-                <AppFilter />
+                <AppFilter filter={filter} onFilterSelect={onFilterSelect}/>
 
             </div>
 

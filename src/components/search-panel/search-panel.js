@@ -10,7 +10,7 @@ const SearchPanel = ({onUpdateSearch}) => {
     const onUpdate = (e) => {
         const term = e.target.value;
         setSearchTerm(term);
-        onUpdateSearch(term)
+        onUpdateSearch(term)//передаем данные в главный компонент
     }
 
     return (
