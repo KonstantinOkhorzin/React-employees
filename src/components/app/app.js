@@ -13,9 +13,12 @@ function App() {
 
     const [data, setData] = useState([
         { name: 'John C.', salary: 800, increase: false, rise: false, id: 1 },
-        { name: 'Alex M.', salary: 3000, increase: true, rise: false, id: 2 },
-        { name: 'Carl W.', salary: 5000, increase: false, rise: true, id: 3 }
+        { name: 'Alex M.', salary: 3000, increase: false, rise: false, id: 2 },
+        { name: 'Carl W.', salary: 5000, increase: false, rise: false, id: 3 }
     ]);
+
+    const [term, setTerm] = useState('');
+
 
     const employees = data.length;//общее кол. сотрудников
     const increased = data.filter(item => item.increase).length;//сотрудники на повышение
@@ -35,17 +38,6 @@ function App() {
         setData([...data, newItem])
     }
 
-    //Функция которая меняет состояние значения определенного обьекта
-    // const onToggleIncrease = (id) => {
-    //     setData(data.map(item => {
-    //         if (item.id === id) {
-    //             return { ...item, increase: !item.increase }
-    //         }
-    //         return item;
-    //     })
-    //     )
-    // };
-
     //Универсальная функция для изменения нескольких состояний
     const onToggleProp = (id, prop) => {
         setData(data.map(item => {
@@ -57,19 +49,39 @@ function App() {
         )
     }
 
+    //Функция для поиска
+    const searchEmp = (data, term) => {
+        if (term.length === 0) {
+            return data
+        }
+
+        return data.filter(item => {
+            return item.name.indexOf(term) > -1
+        })
+    }
+
+    const visibleData = searchEmp(data, term);
+
+    //Функция для обновления поиска
+    const onUpdateSearch = (term) => {
+        setTerm(term)
+    }
+
+    
+
 
     return (
         <div className="app">
             <AppInfo employees={employees} increased={increased} />
 
             <div className="search-panel">
-                <SearchPanel />
+                <SearchPanel onUpdateSearch={onUpdateSearch}/>
                 <AppFilter />
 
             </div>
 
             <EmployeesList
-                data={data}
+                data={visibleData}
                 onDeleteItem={onDeleteItem}
                 onToggleProp={onToggleProp} />
             <EmployeesAddForm
