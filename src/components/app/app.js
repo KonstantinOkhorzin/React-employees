@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 
 import AppInfo from '../app-info/app-info';
@@ -11,15 +11,22 @@ import './app.css';
 
 function App() {
 
-    const [data, setData] = useState([
-        { name: 'John C.', salary: 800, increase: false, rise: false, id: 1 },
-        { name: 'Alex M.', salary: 3000, increase: false, rise: true, id: 2 },
-        { name: 'Carl W.', salary: 5000, increase: false, rise: false, id: 3 }
-    ]);
+    // const [data, setData] = useState([
+    //     { name: 'John C.', salary: 800, increase: false, rise: false, id: 1 },
+    //     { name: 'Alex M.', salary: 3000, increase: false, rise: true, id: 2 },
+    //     { name: 'Carl W.', salary: 5000, increase: false, rise: false, id: 3 }
+    // ]);
+
+    const [data, setData] = useState(
+        JSON.parse(localStorage.getItem('data')) || []
+    );
+
+    useEffect(() => {
+        localStorage.setItem('data', JSON.stringify(data))
+    }, [data]);
 
     const [term, setTerm] = useState('');
     const [filter, setFilter] = useState('all');
-
 
     const employees = data.length;//общее кол. сотрудников
     const increased = data.filter(item => item.increase).length;//сотрудники на повышение
